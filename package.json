@@ -1,7 +1,7 @@
 {
   "name": "ng-harmony-ioc",
   "description": "An AppManager for ng-harmony angular apps",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "homepage": "https://github.com/ng-harmony/ng-harmony-ioc",
   "author": {
     "name": "Joehannes",
