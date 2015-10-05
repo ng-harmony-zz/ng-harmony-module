@@ -27,7 +27,7 @@ Dependency Imports
 ```javascript
     import angular from "angular";
     import router from "angular-ui-router";
-    import { Ctrl } from "ng-harmony";
+    import { Ctrl } from "ng-harmony/ng-harmony";
 ```
 
 The _Module_ klass serves as little convenience wrapper so one can write tastier code
