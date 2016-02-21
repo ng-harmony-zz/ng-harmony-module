@@ -18,7 +18,7 @@ Use it in conjunction with
 
 This serves as literate-programming compiler-directive
 
-[./dist/raw/ng_harmony.js](#Compilation "save:")
+[./build/index.js](#Compilation "save:")
 
 ## Compilation
 
