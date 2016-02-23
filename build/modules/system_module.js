@@ -27,11 +27,11 @@ export class Module {
             if (typeof routes.default !== "undefined" && routes.default !== null) {
                 $urlRouterProvider.otherwise(routes.default);
             }
-            for (let [i, route] of Object.getOwnPropertyNames(routes).entries()) {
+            for (let [i, route] of Object.keys(routes).entries()) {
                 let resolve = {},
                     state = routes[route];
                 if (typeof state.resolve !== "undefined" && state.resolve !== null) {
-                    for (let [j, stateParam] of Object.getOwnPropertyNames(state.resolve).entries()) {
+                    for (let [j, stateParam] of Object.keys(state.resolve).entries()) {
                         resolve[stateParam] = ["$stateParams", (_stateParam => {
                             return $params => {
                                 return $params[state.resolve[_stateParam]];
