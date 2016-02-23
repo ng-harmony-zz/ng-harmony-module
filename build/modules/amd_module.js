@@ -6,15 +6,15 @@ export class Module {
         this.name = name;
         this.dependencies = dependencies;
         this.dependencies.push(router);
-        console.log(router);
         this.module = angular.module(name, dependencies);
         if (typeof routes !== "undefined" && routes !== null) {
             this.routing(routes);
         }
     }
     bootstrap() {
+        let that = this;
         angular.element(document).ready(() => {
-            angular.bootstrap(document, [this.name]);
+            angular.bootstrap(document, [that.name]);
         });
     }
     routing(routes) {
