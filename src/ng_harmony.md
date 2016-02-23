@@ -27,7 +27,6 @@ Dependency Imports
 ```javascript
     import angular from "angular";
     import router from "angular-ui-router";
-    import { Ctrl } from "ng-harmony/ng-harmony";
 ```
 
 The _Module_ klass serves as little convenience wrapper so one can write tastier code
@@ -37,6 +36,7 @@ The _Module_ klass serves as little convenience wrapper so one can write tastier
         constructor(name, dependencies, routes) {
             this.name = name;
             this.dependencies = dependencies;
+            this.dependencies.push(router);
             this.module = angular.module(name, dependencies);
             if (typeof routes !== "undefined" && routes !== null) {
             	this.routing(routes);
