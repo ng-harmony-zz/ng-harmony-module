@@ -37,15 +37,17 @@ The _Module_ klass serves as little convenience wrapper so one can write tastier
             this.name = name;
             this.dependencies = dependencies;
             this.dependencies.push(router);
-            this.module = angular.module(name, dependencies);
+            angular.module(name, dependencies);
             if (typeof routes !== "undefined" && routes !== null) {
             	this.routing(routes);
             }
         }
+        get module() {
+            return angular.module(this.name);
+        }
         bootstrap() {
-            let that = this;
             angular.element(document).ready(() => {
-                angular.bootstrap(document, [that.name]);
+                angular.bootstrap(document.body, [this.name]);
             });
         }
         routing(routes) {
