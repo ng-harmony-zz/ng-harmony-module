@@ -1,11 +1,12 @@
 import angular from "angular";
 import router from "angular-ui-router";
-import { Ctrl } from "ng-harmony/ng-harmony";
 
 export class Module {
     constructor(name, dependencies, routes) {
         this.name = name;
         this.dependencies = dependencies;
+        this.dependencies.push(router);
+        console.log(router);
         this.module = angular.module(name, dependencies);
         if (typeof routes !== "undefined" && routes !== null) {
             this.routing(routes);
