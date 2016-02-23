@@ -1,7 +1,7 @@
 {
     "name": "ng-harmony-module",
     "description": "Kicking off your ng1-porject with Babeltastic styles ...",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "homepage": "https://github.com/joehannes/ng-harmony-module",
     "author": {
         "name": "DI (FH) Johannes Neugschwentner",
@@ -18,7 +18,7 @@
         "type": "MIT",
         "url": "https://github.com/joehannes/ng-harmony-module/blob/master/LICENSE"
     }],
-    "main": "dist/es5/system_module.js",
+    "main": "build/index.js",
     "engines": {
         "node": ">= 0.10.36",
         "npm": ">=1.4.28"
