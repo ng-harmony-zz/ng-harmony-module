@@ -47,7 +47,9 @@ The _Module_ klass serves as little convenience wrapper so one can write tastier
         }
         bootstrap() {
             angular.element(document).ready(() => {
-                angular.bootstrap(document.body, [this.name]);
+                setTimeout(() => {
+                    angular.bootstrap(document, [this.name]);
+                }, 1000); 
             });
         }
         routing(routes) {

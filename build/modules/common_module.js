@@ -16,7 +16,9 @@ export class Module {
     }
     bootstrap() {
         angular.element(document).ready(() => {
-            angular.bootstrap(document.body, [this.name]);
+            setTimeout(() => {
+                angular.bootstrap(document, [this.name]);
+            }, 1000);
         });
     }
     routing(routes) {
