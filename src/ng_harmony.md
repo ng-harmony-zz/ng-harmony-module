@@ -35,8 +35,8 @@ The _Module_ klass serves as little convenience wrapper so one can write tastier
     export class Module {
         constructor(name, dependencies, routes) {
             this.name = name;
-            this.dependencies = dependencies;
-            this.dependencies.push(router);
+            this.dependencies = dependencies || [];
+            this.dependencies.push("ui.router");
             angular.module(name, dependencies);
             if (typeof routes !== "undefined" && routes !== null) {
             	this.routing(routes);
