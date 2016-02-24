@@ -28,6 +28,9 @@ export class Module {
                 $urlRouterProvider.otherwise(routes.default);
             }
             for (let [i, route] of Object.keys(routes).entries()) {
+                if (route === "default") {
+                    continue;
+                }
                 $stateProvider.state(route, routes[route]);
             }
         });

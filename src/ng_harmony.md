@@ -59,6 +59,7 @@ The _Module_ klass serves as little convenience wrapper so one can write tastier
                     $urlRouterProvider.otherwise(routes.default);
                 }
                 for (let [i, route] of Object.keys(routes).entries()) {
+                    if (route === "default") { continue; }
                     $stateProvider.state(route, routes[route]);
                 }
             });
