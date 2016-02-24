@@ -4,9 +4,10 @@
     export class Module {
         constructor(name, dependencies, routes) {
             this.name = name;
+            this.bootstrap();
             this.dependencies = dependencies || [];
             this.dependencies.push("ui.router");
-            angular.module(name, dependencies);
+            angular.module(name, this.dependencies);
             if (typeof routes !== "undefined" && routes !== null) {
             	this.routing(routes);
             }
