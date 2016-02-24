@@ -27,8 +27,8 @@
                 if (typeof routes.default !== "undefined" && routes.default !== null) {
                     $urlRouterProvider.otherwise(routes.default);
                 }
-                for (let [state, routing] of Object.keys(routes).entries()) {
-                    $stateProvider.state(state, routing);
+                for (let [i, route] of Object.keys(routes).entries()) {
+                    $stateProvider.state(route, routes[route]);
                 }
             });
         }
