@@ -58,21 +58,8 @@ The _Module_ klass serves as little convenience wrapper so one can write tastier
                 if (typeof routes.default !== "undefined" && routes.default !== null) {
                     $urlRouterProvider.otherwise(routes.default);
                 }
-                for (let [i, route] of Object.keys(routes).entries()) {
-                    let resolve = {},
-                        state = routes[route];
-                    if (typeof state.resolve !== "undefined" && state.resolve !== null) {
-                        for (let [j, stateParam] of Object.keys(state.resolve).entries()) {
-                            resolve[stateParam] = ["$stateParams", ((_stateParam) => {
-                                return ($params) => {
-                                    return $params[state.resolve[_stateParam]];
-                                }
-                            })(stateParam)];
-                        }
-                    }
-                    let config = state;
-                    config.resolve = resolve;
-                    $stateProvider.state(route, config);
+                for (let [state, routing] of Object.keys(routes).entries()) {
+                    $stateProvider.state(state, routing);
                 }
             });
         }
