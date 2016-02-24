@@ -16,14 +16,12 @@ export class Module {
     }
     bootstrap() {
         angular.element(document).ready(() => {
-            setTimeout(() => {
-                angular.bootstrap(document, [this.name]);
-            }, 1000);
+            angular.bootstrap(document, [this.name]);
         });
     }
     routing(routes) {
         this.routes = routes;
-        this.module.config(($stateProvider, $urlRouterProvider) => {
+        this.config(($stateProvider, $urlRouterProvider) => {
             if (typeof routes.default !== "undefined" && routes.default !== null) {
                 $urlRouterProvider.otherwise(routes.default);
             }
