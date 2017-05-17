@@ -5,7 +5,7 @@
         constructor(name, dependencies, routes) {
             this.name = name;
             this.dependencies = dependencies || [];
-            this.dependencies.push("ng-route");
+            this.dependencies.push("ngRoute");
             angular.module(this.name, this.dependencies);
             if (typeof routes !== "undefined" && routes !== null) {
             	this.routing(routes);
