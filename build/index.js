@@ -1,11 +1,11 @@
     import angular from "angular";
-    import router from "angular-ui-router";
+    import router from "angular-route";
 
     export class Module {
         constructor(name, dependencies, routes) {
             this.name = name;
             this.dependencies = dependencies || [];
-            this.dependencies.push("ui.router");
+            this.dependencies.push("ng-route");
             angular.module(this.name, this.dependencies);
             if (typeof routes !== "undefined" && routes !== null) {
             	this.routing(routes);
@@ -21,13 +21,14 @@
         }
         routing(routes) {
             this.routes = routes;
-            this.config(($stateProvider, $urlRouterProvider) => {
+            this.config(($routeProvider) => {
                 if (typeof routes.default !== "undefined" && routes.default !== null) {
-                    $urlRouterProvider.otherwise(routes.default);
+                    $routeProvider.when("/", routes.default);
+                    $routeProvider.otherwise(routes.default);
                 }
                 for (let [i, route] of Object.keys(routes).entries()) {
                     if (route === "default") { continue; }
-                    $stateProvider.state(route, routes[route]);
+                    $routeProvider.when(route, routes[route]);
                 }
             });
         }

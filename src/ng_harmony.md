@@ -26,7 +26,7 @@ Dependency Imports
 
 ```javascript
     import angular from "angular";
-    import router from "angular-ui-router";
+    import router from "angular-route";
 ```
 
 The _Module_ klass serves as little convenience wrapper so one can write tastier code
@@ -36,7 +36,7 @@ The _Module_ klass serves as little convenience wrapper so one can write tastier
         constructor(name, dependencies, routes) {
             this.name = name;
             this.dependencies = dependencies || [];
-            this.dependencies.push("ui.router");
+            this.dependencies.push("ngRoute");
             angular.module(this.name, this.dependencies);
             if (typeof routes !== "undefined" && routes !== null) {
             	this.routing(routes);
@@ -52,13 +52,14 @@ The _Module_ klass serves as little convenience wrapper so one can write tastier
         }
         routing(routes) {
             this.routes = routes;
-            this.config(($stateProvider, $urlRouterProvider) => {
+            this.config(($routeProvider) => {
                 if (typeof routes.default !== "undefined" && routes.default !== null) {
-                    $urlRouterProvider.otherwise(routes.default);
+                    $routeProvider.when("/", routes.default);
+                    $routeProvider.otherwise(routes.default);
                 }
                 for (let [i, route] of Object.keys(routes).entries()) {
                     if (route === "default") { continue; }
-                    $stateProvider.state(route, routes[route]);
+                    $routeProvider.when(route, routes[route]);
                 }
             });
         }
@@ -79,9 +80,9 @@ Then kick off the module using the Module-klass's methods.
 Example Routing:
 ```javascript
     {
-        "stateName": {
-            "url": "/url/:path/:id",
-            "controller": "MyController",
+        "/mypath": {
+            "controller": "SuperCarController",
+            "controllerAs": "SuperCar",
             "template": require("/path/to/template"),
             "resolve": {
                 "selection": "path",
@@ -96,3 +97,4 @@ Example Routing:
 *0.1.0*: Initial Features: Basic Module creation and routing using ui-router, convenience config accessor + Basic Statemachine
 *0.1.1*: Revamping the Module class as actual instance-class, not static ... wouldn't work otherwise ;), adding bootstrapping
 *0.1.2*: Rethinking the workflow to literate programming and md files that share different contents (js, sass, jade ...), changing routing
+*0.2.0*: Downgrading from ui-router to ng-route in order to be more compliant to the efforts of syncing ngjs with ngx
