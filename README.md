@@ -1,56 +1,149 @@
 ![Harmony = 6 + 7;](src/logo.png "Harmony - Fire in my eyes")
 
-Please feel free to attach another logo for your lib/project
+#CHECK OUT THE NEW DEMO
+[ng-harmony-demo](http://www.github.com/ng-harmony/ng-harmony-demo)
 
 ## Synopsis
 
-Here you go, make the dev in spe understand why he's looking at your lib
+Kicking off your AngularJS Project in ES.Next Style
 
 ## Code Example
 
 ```javascript
-import { Controller, Service } from "ng-harmony/ng-harmony";
-import { SomeUtilityClass, OtherUtilityClass} from "my-org/my-repo";
+import { EventedController as Ctrl } from "ng-harmony";
+import { Component, Controller, Loggging, Evented } from "ng-harmony-decorator";
 ```
 
 We can use this lib in such a way *[...]*
 
 ```javascript
-class YourThingy extends Controller.mixin(SomeUtilityClass, OtherUtilityClass) {
+@Component({
+    module: "compucorp",
+    selector: "mediaitem",
+    restrict: "E",
+    replace: true,
+    controller: "MediaItemCtrl",
+    template: MediaItemTpl
+})
+@Controller({
+    module: "compucorp",
+    name: "MediaItemCtrl",
+    controllerAs: "MediaItem",
+})
+@Logging({
+    loggerName: "MediaItemLogger",
+    ...Config
+})
+export class MediaItemCtrl extends Ctrl {
+    constructor(...args) {
+        super(...args);
+        this.$scope.albumcardVisible = false;
+        this.$scope.artistcardVisible = false;
+        this.$scope.$on("change", this.handleEvent.bind(this));
+    }
+
+    handleEvent (ev, { scope, triggerFn, triggerTokens }) {
+        this.log({
+            level: "info",
+            msg: "handlingChildEvent"
+        });
+        if (scope._name.fn === "ArtistCardCtrl" && triggerTokens.type === "click") {
+            this.$scope.artistcardVisible = false;
+        } else if (scope._name.fn === "AlbumCardCtrl" && triggerTokens.type === "click") {
+            this.$scope.albumcardVisible = false;
+        }
+        this._digest();
+    }
+
+    @Evented({
+        selector: "section.bg-image-n--mediaitem",
+        type: "click",
+        delegate: null
+    })
+    openCard () {
+        this.$scope[`${this.$scope.model.type}cardVisible`] = true;
+        this._digest();
+    }
+}
 ```
 
-## Motivation
+## License
 
-* I wanted to be part of this because I liked it
-* I am a secret agent and want to test my superpowers
-* I had this idea ...
-* I want to stick with Angular 1 for now and missed this feature
+MIT
+![Harmony = 6 + 7;](src/logo.png "Harmony - Fire in my eyes")
 
-## Installation
+#CHECK OUT THE NEW DEMO
+[ng-harmony-demo](http://www.github.com/ng-harmony/ng-harmony-demo)
 
-I recommend the usage of jspm.
-This way, just base your project upon jspm and start using this lib as in the code example above.
+## Synopsis
 
-```bash
-jspm i github:ng-harmony/...
+Typescript or Angular > 1 Style Decorators for AngularJS
+
+## Code Example
+
+### Main Entry Point
+
+```javascript
+import "../assets/styles/main.scss";
+
+import module from "./module";
+import routes from "./routes";
+
+import "./services/spotify";
+
+import "./components/mediaitem";
+import "./components/artistcard";
+import "./components/albumcard";
+
+import "./pages/landing";
+import "./pages/search";
+
+module.routing(routes);
+module.config(($locationProvider) => {
+    $locationProvider.html5Mode(false);
+})
+module.bootstrap();
+
+export default module.name;
 ```
 
-## API Reference
+### Routing
 
-### `MyMainUtil` (Root-Class)
+```javascript
+import LandingPageTpl from "../ui/landing.html";
+import SearchPageTpl from "../ui/search.html";
 
-`myMethod`: that's a foo figther
-`myOtherMethod`: that's just a bar of gold
+var routes = {
+    default: {
+        controller: "LandingPageCtrl",
+        template: LandingPageTpl
+    },
+    "/search": {
+        controller: "SearchPageCtrl",
+        template: SearchPageTpl,
+        resolve: {
+            observables: ["SpotifyService", (SpotifyService) => { return SpotifyService.initialized.promise; }]
+        }
+    }
+};
 
+export default routes;
+```
 
-### `MyOtherUtil`
+### Module Definition
 
-`digest`: my stomach is full, too much pizzs, should have left it for the cat
+```javascript
+import angular from "angular";
+import router from "angular-route";
+import animate from "angular-animate";
+import loadingBar from "angular-loading-bar";
+import mediaQueries from "angular-media-queries";
+import { Module } from "ng-harmony-module";
 
-## Contributors
+var module = new Module("compucorp", ["ngRoute", "ngAnimate", "angular-loading-bar", "matchMedia"]);
 
-Drop me an email at <you> at <your-email-provider> dot <domain>
-
+export default module;
+```
 ## License
 
 MIT
